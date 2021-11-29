@@ -18,9 +18,6 @@ class BooksController < ApplicationController
     Book.find(params[:id]).destroy!
 
     head :no_content # returns a 204 in the head of the return
-
-  rescue ActiveRecord::RecordNotDestroyed
-    render json: {}, status: :unprocessable_entity
   end
 
   private
