@@ -8,16 +8,14 @@ module Api
       end
 
       def create
-        # binding.irb
         author = Author.create!(author_params)
         book = Book.new(book_params.merge(author_id: author.id))
 
         if book.save
-          render json: book, status: :created # 'status: :created' returns a 201 status
+          render json: BookRepresenter.new(book).as_json, status: :created
         else
-          render json: book.errors, status: :unprocessable_entity # 'status: :unprocessable_entity' returns a 422
+          render json: book.errors, status: :unprocessable_entity
         end
-        # See http://www.railsstatuscodes.com/ for other Rails status code keys
       end
 
       def destroy
